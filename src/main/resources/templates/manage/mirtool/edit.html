@@ -1,0 +1,351 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" th:src="@{/webapp/static/lib}"  ></script>
+    <script type="text/javascript" th:src="@{/webapp/static/lib/respond.min.js}" ></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui/css/H-ui.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui.admin/css/H-ui.admin.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/lib/Hui-iconfont/1.0.8/iconfont.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui.admin/skin/red/skin.css}" id="skin" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui.admin/css/style.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/lib/bootstrap-3.3.7/css/bootstrap.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/lib/multiple-select/css/multi-select.css}" />
+
+    <!--[if IE 6]>
+    <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>add mirtool - mirtool manage</title>
+
+
+</head>
+<body>
+<article class="page-container">
+    <form class="form"  id="toolForm"  enctype="multipart/form-data" th:action="@{/mirtool/manage/edit}">
+        <input th:value="${selectedMirtool.mirtoolId}" name="mirtoolId" type="hidden">
+        <div  class="form-group required">
+            <label class="control-label fw-normal fs-4" for="name" style="user-select: auto;">Tool Name</label>
+            <input th:value="${selectedMirtool.mirtoolName}" type="text" class="form-control form-control-sm "  id="name" name="mirtoolName" size="60" required="required" oninvalid="this.setCustomValidity('Please input the name of new tools.')">
+        </div><br>
+
+        <div class="form-group required">
+            <label class="control-label fw-normal fs-6"  style="user-select: auto;">Status</label>
+            <div name="status_radio" >
+                <label class="radio-inline">
+                    <input type="radio" name="satus" id="inlineRadio1" value="4" th:checked="${selectedMirtool.satus} ?'4'"> active
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="satus" id="inlineRadio2" value="5" th:checked="${selectedMirtool.satus} ?'5'"> dead
+                </label>
+            </div>
+
+        </div>
+
+        <div class="mb-3">
+            <label class="fw-normal fs-4" for="edit-submitted-abstract" style="user-select: auto;">Abstract </label>
+            <div class="form-textarea-wrapper resizable textarea-processed resizable-textarea" style="user-select: auto;">
+                <textarea id="edit-submitted-abstract" name="summary" cols="60" rows="5" class="form-control form-control-sm" style="user-select: auto;" th:text="${selectedMirtool.summary}"></textarea>
+                <div class="grippie" style="user-select: auto;"></div>
+            </div>
+        </div>
+
+        <div  id="links" >
+            <div>
+
+                <label class="fw-normal fs-4" for="links" style="user-select: auto;">Links</label>
+
+                <span style="cursor: pointer;color: green"
+                      class="glyphicon glyphicon-plus"
+                      onclick="addMirtoolLinks();"
+                ></span>
+
+
+            </div>
+        </div>
+
+        <div id="link_detail" class="form-group" th:each="link:${links}">
+            <div class="input-group">
+                <input type="text" class="form-control " placeholder="link"  name="links" th:value="${link.url}">
+                <span class="input-group-btn">
+                     <button class="btn btn-default" type="button"  onclick="removeMirtoolLink(this);">delete</button>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group" >
+            <label class=" control-label fw-normal fs-4" for="doi" style="user-select: auto;">PubMed IDs </label>
+            <input type="text" class="form-control " id="doi" name="doi"   size="60" maxlength="128"  style="user-select: auto;" th:value="${selectedMirtool.doi}">
+
+        </div>
+
+        <div >
+            <label class=" control-label fw-normal fs-4"  style="user-select: auto;">Tags</label>
+
+            <select id='custom-headers' multiple='multiple' name="tags" >
+
+                <option th:each="tagall:${tagList}" th:value="${tagall.tagId}" th:text="${tagall.tagName}" th:selected="${tagIds.contains(tagall.tagId)} "/>
+
+            </select>
+        </div>
+
+        <div class="species" style="user-select: auto;">
+            <label class="fw-normal fs-4" style="user-select: auto;">Species</label>
+            <div class="checkbox" id="species" style="vertical-align:middle" >
+                <label th:each="species:${speciesList}" class='checkbox' >
+                    <input type="checkbox" th:value="${species.speciesId}" th:text="${species.speciesName}" th:checked="${speciesIds.contains(species.speciesId)}" name='species'>
+                </label>
+
+            </div>
+        </div>
+
+        <div >
+            <label class=" control-label fw-normal fs-4"  style="user-select: auto;">Implement Technique</label>
+
+            <select id='implement_multi' multiple='multiple' name="techniques">
+                <option th:each="technique:${techniqueList}" th:value="${technique.techniqueId}" th:text="${technique.techniqueName}" th:selected="${techniqueIds.contains(technique.techniqueId)} "/>
+            </select>
+        </div>
+
+        <div >
+            <label class=" control-label fw-normal fs-4"  style="user-select: auto;">Methods</label>
+
+            <select id='methods_multi' multiple='multiple' name="methods">
+                <option th:each="method:${methodList}" th:value="${method.methodId}" th:text="${method.methodName}" th:selected="${methodIds.contains(method.methodId)} "/>
+            </select>
+        </div>
+
+        <div class="species" style="user-select: auto;" >
+            <label class="fw-normal fs-4" style="user-select: auto;">Platform</label>
+            <div class="checkbox" id="platform" >
+                 <label th:each="platform:${platformList}" class='checkbox' >
+                     <input type="checkbox" th:value="${platform.platformId}" th:text="${platform.platformName}" th:checked="${platformIds.contains(platform.platformId)}" name='platforms'>
+                 </label>
+
+            </div>
+        </div>
+
+        <div >
+            <label class="fw-normal fs-4" style="user-select: auto;">Logo</label><br>
+            <div id="logoDiv" th:style="${address==''?'display:none':''}">
+                <img th:src="@{${address}}"  height="80" width="80"  class="img-rounded" name="logo_remove_img"> <button class="btn btn-default" type="button" name="logo_remove_btn" th:onclick="removeLogo([[${selectedMirtool.mirtoolId}]])">remove</button>
+
+            </div>
+            <input id="logo" name="logo" type="file" class="file" data-browse-on-zone-click="true">
+            <div class="fw-light fs-6" style="user-select: auto;">Files must be less than 5 MB.
+                Allowed file types: png gif jpg jpeg.</div>
+        </div>
+
+        <div>
+            <label class=" control-label fw-normal fs-4 col" for="pubmed_citation_count" style="user-select: auto;">PubMed Citation Count </label>
+            <input type="number" class="form-control form-control-sm " id="pubmed_citation_count" name="pubmedCitation" th:value="${selectedMirtool.pubmedCitation}">
+            <div class="fw-light fs-6" style="user-select: auto;">this field will be filled by sum of citations of publication</div>
+        </div>
+
+        <div >
+            <label class="fw-normal fs-4" for="pageRank_score" style="user-select: auto;">PageRank score</label>
+            <input type="number" id="pageRank_score" name="pagerank"  class="form-control form-control-sm" style="user-select: auto;" th:value="${selectedMirtool.pagerank}">
+        </div>
+
+        <div>
+            <label class="fw-normal fs-4" for="latest_year" style="user-select: auto;">Latest Publication year</label>
+            <input type="number" id="latest_year" name="latestPublicationYear" value="" size="60" maxlength="128" class="form-control form-control-sm" style="user-select: auto;" th:value="${selectedMirtool.latestPublicationYear}">
+        </div>
+
+        <div>
+            <label class="fw-normal fs-4" for="publication_count" style="user-select: auto;">Publication Count</label>
+            <input type="number" id="publication_count" name="publicationCount" value="" size="60" maxlength="128" class="form-control form-control-sm" style="user-select: auto;" th:value="${selectedMirtool.publicationCount}">
+        </div>
+
+        <div>
+            <label class="fw-normal fs-4" for="citation_count" style="user-select: auto;">Google Scholar Citation Count</label>
+            <input type="number" id="citation_count" name="googleCitation" value="" size="60" maxlength="128" class="form-control form-control-sm" style="user-select: auto;" th:value="${selectedMirtool.googleCitation}">
+        </div>
+
+
+        <div class="col-12">
+            <button id="submitTool" class="btn btn-primary" type="submit">Submit</button>
+        </div>
+    </form>
+</article>
+
+
+<!--请在下方写此页面业务相关的脚本-->
+
+<script type="text/javascript" th:src="@{/webapp/lib/jquery/1.9.1/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/layer/2.4/layer.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/static/h-ui/js/H-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/static/h-ui.admin/js/H-ui.admin.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/multiple-select/js/jquery.multi-select.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/multiple-select/js/jquery.quicksearch.js}"></script>
+
+
+<script type="text/javascript" th:src="@{/webapp/lib/jquery.validation/1.14.0/jquery.validate.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/jquery.validation/1.14.0/validate-methods.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/jquery.serializeJSON/jquery.serializejson.min.js}"></script>
+<script>
+    //获取工具细节栏备份
+    let copy = $('#link_detail').clone()
+
+    $("#toolForm").validate({
+        rules:{
+            mirtoolName: {
+                required:true
+
+
+            }
+            },
+
+
+        messages:{
+            mirtoolName:{
+                required: "mirtoolName can not be empty",
+                remote: "mirtoolName already exists"
+            }
+
+        },
+        submitHandler:function(form){
+            /*
+                        var JSONobj = $("#toolForm").serializeJSON();
+                        var JSONstr = JSON.stringify(JSONobj);//将JSON对象格式化成字符串*/
+            var formData = new FormData($("#toolForm")[0]);
+
+            $.ajax({
+                type:"post",
+                url:"/mirtool/update",
+                cache: false,
+                contentType: false,
+                processData: false,
+                data:formData,
+                dataType : 'json',
+                success:function (res) {
+
+                    if (res.status == 0) {
+                        //弹出一个提示消息
+
+                        layer.msg(res.msg, {time: 1000, icon:6},function () {
+                            parent.refreshTable()
+                            let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                            parent.layer.close(index); //再执行关闭
+
+                        });
+                    } else {
+                        //弹出一个提示消息
+
+                        layer.msg(res.msg, {time: 1000, icon:5},function () {
+/*
+                            let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                            parent.layer.close(index); //再执行关闭*/
+                        });
+                    }
+                },
+                error:function (res) {
+
+                    layer.msg(res.msg,{time: 1000, icon:5})
+                }
+            })
+
+
+        }
+
+    });
+
+    function addMirtoolLinks() {
+        //用备份克隆新的订单详情
+
+        let newDetail = copy.clone()
+        newDetail.change(function(e){
+            culTotal(e)
+        })
+        //添加进mirtool_detail
+        $('#links').append(newDetail)
+    }
+    function removeMirtoolLink(obj) {
+        $(obj).parent().parent().remove()
+    }
+    function removeLogo(mirtoolId){
+    /*    $.ajax({
+            type: "get",
+            data:{
+                mirtoolId:mirtoolId
+            },
+            url:"/mirtool/removeLogo",
+            dataType : 'json',
+            success:function (res){
+                if (res.status == 0) {
+                    //弹出一个提示消息
+
+                    layer.msg(res.msg, {time: 1000, icon:6},function () {
+
+                        $('#logo_remove_img').remove();
+                        $('#logo_remove_btn').remove();
+                    });
+                } else {
+                    //弹出一个提示消息
+
+                    layer.msg(res.msg, {time: 1000, icon:5},function () {
+
+                    });
+                }
+            }
+        })*/
+
+        $("#logoDiv").remove();
+    }
+
+    multiSelect_obj('#custom-headers');
+    multiSelect_obj('#implement_multi');
+    multiSelect_obj('#methods_multi');
+
+    function multiSelect_obj(obj){
+        $(obj).multiSelect({ selectableHeader: "<input type='text' class='search-input form-control' autocomplete='off' placeholder='try \"a\"'>",
+            selectionHeader: "<input type='text' class='search-input form-control' autocomplete='off' placeholder='try \"a\"'>",
+            afterInit: function(ms){
+                var that = this,
+                    $selectableSearch = that.$selectableUl.prev(),
+                    $selectionSearch = that.$selectionUl.prev(),
+                    selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
+                    selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
+
+                that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                    .on('keydown', function(e){
+                        if (e.which === 40){
+                            that.$selectableUl.focus();
+                            return false;
+                        }
+                    });
+
+                that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                    .on('keydown', function(e){
+                        if (e.which == 40){
+                            that.$selectionUl.focus();
+                            return false;
+                        }
+                    });
+            },
+            afterSelect: function(){
+                this.qs1.cache();
+                this.qs2.cache();
+            },
+            afterDeselect: function(){
+                this.qs1.cache();
+                this.qs2.cache();
+            }})
+    }
+
+
+
+
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

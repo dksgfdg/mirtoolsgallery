@@ -1,0 +1,308 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="Bookmark" href="/favicon.ico" >
+    <link rel="Shortcut Icon" href="/favicon.ico" />
+    <!--[if lt IE 9]>
+
+    <script type="text/javascript" th:src="@{/webapp/static/lib}"  ></script>
+    <script type="text/javascript" th:src="@{/webapp/static/lib/respond.min.js}" ></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui/css/H-ui.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui.admin/css/H-ui.admin.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/lib/Hui-iconfont/1.0.8/iconfont.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui.admin/skin/red/skin.css}" id="skin" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui.admin/css/style.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/lib/bootstrap-3.3.7/css/bootstrap.css}" />
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/lib/pagination/css/pagination.css}" />
+
+    <!--[if IE 6]>
+    <script type="text/javascript" th:src="@{/webapp/static/lib/DD_belatedPNG_0.0.8a-min.js}"></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>mirtoolsgallery</title>
+    <script th:src="@{/webapp/lib/html5shiv.js}"></script>
+    <!--<link rel="stylesheet" href="../static/css/bootstrap.min.css">-->
+</head>
+<body>
+<header class="navbar-wrapper">
+    <div class="navbar">
+        <div class="container-fluid cl">
+
+            <a class=" navbar-logo f-l mr-10 hidden-xs" th:href="@{index}">
+                <img th:src="@{/images/logo-miRToolsGallery-150.png}" height="150" width="273"/>
+            </a>
+
+
+            <a class="logo navbar-logo-m f-l mr-10 visible-xs" th:href="@{index}">miRToolsGallery</a>
+
+            <span class="logo navbar-slogan f-l mr-10 hidden-xs">A Small Non-coding RNA bioinformatics resources database portal</span>
+            <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
+
+
+
+
+            <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
+                <ul class="cl">
+                    <li id="Hui-backstage-management"> <a th:href="@{/manage/index}" ><i class="Hui-iconfont" style="font-size:18px">backstage management</i></a> </li>
+                    <li id="Hui-sign-in"> <a th:href="@{/login}" ><i class="Hui-iconfont" style="font-size:18px">sign in</i></a> </li>
+                    <li id="Hui-sign-up"> <a th:href="@{/signup}"><i class="Hui-iconfont" style="font-size:18px">sign up</i></a> </li>
+
+                </ul>
+            </nav>
+        </div>
+        <div class="container-fluid cl">
+            <nav id="Hui-nav" class="nav navbar-nav nav-collapse" role="navigation" style="user-select: auto;">
+                <ul id="min_title_list" >
+                    <li calss="current" id="Huinav_1" style="user-select: auto;"> <a th:href="@{/index}">Home</a> </li>
+                    <li id="Huinav_2" style="user-select: auto;"> <a th:href="@{/mirtool/filter}" style="user-select: auto;">Filter and Rank</a> </li>
+                    <li id="Huinav_3" style="user-select: auto;"> <a th:href="@{/tutorials}" style="user-select: auto;">Tutorials</a> </li>
+                    <li id="Huinav_4" style="user-select: auto;"> <a th:href="@{/tag/list}" style="user-select: auto;">Tags Gallery</a> </li>
+                    <li id="Huinav_5" style="user-select: auto;"> <a th:href="@{/logo/list}" style="user-select: auto;">Logo Gallery</a> </li>
+                    <li id="Huinav_6" style="user-select: auto;"> <a th:href="@{/paper/list}" style="user-select: auto;">Review Paper Gallery</a> </li>
+                    <li id="Huinav_7" style="user-select: auto;"> <a th:href="@{/mirtool/add}" style="user-select: auto;">Submit Tools</a> </li>
+                    <li id="Huinav_8" style="user-select: auto;"> <a th:href="@{/mirtool/manage}" style="user-select: auto;">Manage Tools</a> </li>
+                    <li id="Huinav_9" style="user-select: auto;"> <a th:href="@{/contact}" style="user-select: auto;">Contact Us</a> </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</header>
+<div class="container">
+
+
+<h2 class="title" id="page-title" style="user-select: auto;">
+
+    Submit Tools       </h2>
+
+<!--<div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">提交成功</div>
+</div>-->
+    <div class="container" style="user-select: auto">
+        <div class="row">
+            <div class="col-md-8">
+
+<form class="form "  id="toolForm" th:action="@{/mirtool/insert}" >
+
+<!--    <div class="webform-progressbar-outer" style="user-select: auto;">
+        <div class="webform-progressbar-inner" style="width: 0%; user-select: auto;">&nbsp;</div>
+        <span class="webform-progressbar-page current" style="left: 0%; user-select: auto;">
+          <span class="webform-progressbar-page-number" style="user-select: auto;">1</span>
+                    <span class="webform-progressbar-page-label" style="user-select: auto;">
+            Start          </span>
+                  </span>
+        <span class="webform-progressbar-page" style="left: 100%; user-select: auto;">
+          <span class="webform-progressbar-page-number" style="user-select: auto;">2</span>
+                    <span class="webform-progressbar-page-label" style="user-select: auto;">
+            Complete          </span>
+                  </span>
+    </div>-->
+
+
+
+    <div style="user-select: auto;">
+        <p class="fw-normal fs-4" style="user-select: auto;"><strong style="user-select: auto;">You could submit your tools by DOI or Links. You could also send us feedback to help us improve our database. Thank you very much!</strong></p>
+
+    </div>
+    <div class="form-group required" >
+        <label class="control-label fw-normal fs-4" for="mail" style="user-select: auto;">Your Email Address </label>
+        <input class="form-control  " type="email" id="mail" name="mail" size="60" style="user-select: auto;"  required oninvalid="this.setCustomValidity('Please Enter email address')">
+
+
+    </div>
+    <div  class="form-group required">
+        <label class="control-label fw-normal fs-4" for="name" style="user-select: auto;">Tool Name</label>
+        <input type="text" class="form-control  "  id="name" name="mirtoolName" size="60" required="required" oninvalid="this.setCustomValidity('Please input the name of new tools.')">
+    </div>
+    <div class="form-group" >
+        <label class=" control-label fw-normal fs-4" for="doi" style="user-select: auto;">DOI </label>
+        <input type="text" class="form-control " id="doi" name="doi"   size="60" maxlength="128"  style="user-select: auto;">
+        <div class="fw-light fs-6" style="user-select: auto;">You could submit the doi of new tools</div>
+    </div>
+    <div class="form-group " >
+        <label class="control-label fw-normal fs-4" for="other-publication-identifier" style="user-select: auto;">Other Publication Identifier </label>
+        <input type="text" class="form-control  " id="other-publication-identifier" name="otherPublicationIdentifier" value="" size="60" maxlength="128"  style="user-select: auto;">
+        <div class="fw-light fs-6" style="user-select: auto;">If the publication is not record in DOI and please submit its' other Identifiers (such as Pubmed, EI accession number)</div>
+    </div>
+    <div  id="links" >
+        <div>
+
+            <label class="fw-normal fs-4" for="links" style="user-select: auto;">Links</label>
+
+            <span style="cursor: pointer;color: green"
+                  class="glyphicon glyphicon-plus"
+                  onclick="addMirtoolLinks();"
+            ></span>
+
+
+        </div>
+    </div>
+
+    <div id="link_detail" class="form-group" >
+        <div class="input-group">
+            <input type="text" class="form-control " placeholder="link"  name="links" >
+            <span class="input-group-btn">
+                     <button class="btn btn-default" type="button"  onclick="removeMirtoolLink(this);">delete</button>
+                </span>
+        </div>
+    </div>
+
+
+    <div class="mb-3">
+        <label class="fw-normal fs-4" for="edit-submitted-messages" style="user-select: auto;">Messages </label>
+        <div class="form-textarea-wrapper resizable textarea-processed resizable-textarea" style="user-select: auto;">
+            <textarea id="edit-submitted-messages" name="message" cols="60" rows="5" class="form-control form-control-sm" style="user-select: auto;"></textarea><div class="grippie" style="user-select: auto;"></div></div>
+        <div class="fw-light fs-6" style="user-select: auto;">You could also send any information to help us find the tools and miRToolsGallery curators will upload the tools at the first time. Thank you very much.</div>
+    </div>
+    <div class="col-12">
+        <button id="submitTool" class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</form>
+            </div>
+            <iframe th:src="@{/side}" frameborder="0"></iframe>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" th:src="@{/webapp/lib/jquery/1.9.1/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/layer/2.4/layer.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/static/h-ui/js/H-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/static/h-ui.admin/js/H-ui.admin.js}"></script>
+
+<script type="text/javascript" th:src="@{/webapp/lib/jquery.validation/1.14.0/jquery.validate.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/jquery.validation/1.14.0/validate-methods.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/jquery.serializeJSON/jquery.serializejson.min.js}"></script>
+<script>
+    //获取工具细节栏备份
+    let copy = $('#link_detail').clone()
+    function addMirtoolLinks() {
+        //用备份克隆新的订单详情
+
+        let newDetail = copy.clone()
+        newDetail.change(function(e){
+            culTotal(e)
+        })
+        //添加进mirtool_detail
+        $('#links').append(newDetail)
+    }
+    function removeMirtoolLink(obj) {
+        $(obj).parent().parent().remove()
+    }
+    $("#toolForm").validate({
+        rules:{
+            mirtoolName: {
+                required:true,
+                remote:{
+                    url:"/mirtool/checkMirtoolName",
+                    type: "get",
+                    dataType: "json",
+                    data:{
+                        userName : function (){
+                            return $('#mirtoolName').val()
+                        }
+                    }
+                }
+
+
+            },
+            mail: {
+                required: true,
+                email:true
+            },
+            otherPublicationIdentifier: {
+                remote:{
+                    url:"/mirtool/checkOtherPublicationIdentifier",
+                    type: "get",
+                    dataType: "json",
+                    data:{
+                        userName : function (){
+                            return $('#otherPublicationIdentifier').val()
+                        }
+                    }
+                }
+            },
+            doi: {
+                remote:{
+                    url:"/mirtool/checkDoi",
+                    type: "get",
+                    dataType: "json",
+                    data:{
+                        userName : function (){
+                            return $('#doi').val()
+                        }
+                    }
+                }
+            }
+        },
+        messages:{
+            mirtoolName:{
+                required: "mirtoolName can not be empty",
+                remote: "mirtoolName already exists"
+            },
+            mail:{
+                required: "Email address can not be empty",
+                email: "Email address is not correct"
+            },
+            otherPublicationIdentifier:{
+                remote: "Other Identifiers already exists"
+            },
+            doi:{
+                remote: "DOI already exists"
+            }
+
+
+        },
+        submitHandler:function(form){
+
+          /*  var JSONobj = $("#toolForm").serializeJSON();
+            var JSONstr = JSON.stringify(JSONobj);//将JSON对象格式化成字符串*/
+            var formData = new FormData($("#toolForm")[0]);
+            $.ajax({
+                type:"post",
+                url:"/mirtool/insert",
+                cache: false,
+                contentType: false,
+                processData: false,
+                data:formData,
+                dataType : 'json',
+                success:function (res) {
+
+                    if (res.status == 0) {
+                        //弹出一个提示消息
+
+                        layer.msg(res.msg, {time: 1000, icon:6},function () {
+
+
+                        });
+                    } else {
+                        //弹出一个提示消息
+
+                        layer.msg(res.msg, {time: 1000, icon:5},function () {
+
+                        });
+                    }
+                },
+                error:function (res) {
+
+                    layer.msg(res.msg,{time: 1000, icon:5})
+                }
+            })
+        }
+
+    });
+
+
+
+</script>
+</body>
+</html>

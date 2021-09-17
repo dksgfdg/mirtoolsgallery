@@ -1,0 +1,152 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="Bookmark" href="/favicon.ico" >
+    <link rel="Shortcut Icon" href="/favicon.ico" />
+    <!--[if lt IE 9]>
+
+    <script type="text/javascript" th:src="@{/webapp/static/lib}"  ></script>
+    <script type="text/javascript" th:src="@{/webapp/static/lib/respond.min.js}" ></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui/css/H-ui.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui.admin/css/H-ui.admin.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/lib/Hui-iconfont/1.0.8/iconfont.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui.admin/skin/red/skin.css}" id="skin" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui.admin/css/style.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/lib/bootstrap-3.3.7/css/bootstrap.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/lib/multiple-select/css/multi-select.css}" />
+
+    <!--[if IE 6]>
+    <script type="text/javascript" th:src="@{/webapp/static/lib/DD_belatedPNG_0.0.8a-min.js}"></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>mirtoolsgallery</title>
+
+    <script th:src="@{/webapp/lib/html5shiv.js}"></script>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+
+
+</head>
+
+<body>
+<header class="navbar-wrapper">
+
+</header>
+<div class="container">
+
+
+    <h2 class="title" id="page-title" style="user-select: auto;">
+
+        Submit method       </h2>
+
+
+
+
+    <form class="form"  id="methodForm"  >
+        <input th:value="${selectedMethod.methodId}" name="methodId" type="hidden">
+
+        <div  class="form-group required">
+            <label class="control-label fw-normal fs-4" for="methodName" style="user-select: auto;">Method Name</label>
+            <input type="text" class="form-control form-control-sm " th:value="${selectedMethod.methodName}" id="methodName" name="methodName" size="60" required="required" oninvalid="this.setCustomValidity('Please input the name of new methods.')">
+        </div><br>
+
+
+
+        <div class="col-12">
+            <button id="submitTool" class="btn btn-primary" type="submit">Submit</button>
+        </div>
+    </form>
+
+</div>
+
+<script type="text/javascript" th:src="@{/webapp/lib/jquery/1.9.1/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/layer/2.4/layer.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/static/h-ui/js/H-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/static/h-ui.admin/js/H-ui.admin.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/multiple-select/js/jquery.multi-select.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/multiple-select/js/jquery.quicksearch.js}"></script>
+
+
+<script type="text/javascript" th:src="@{/webapp/lib/jquery.validation/1.14.0/jquery.validate.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/jquery.validation/1.14.0/validate-methods.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/jquery.serializeJSON/jquery.serializejson.min.js}"></script>
+<script>
+
+
+    $("#methodForm").validate({
+        rules:{
+            methodName: {
+                required:true,
+                minlength:2,
+                maxlength:10
+
+
+            }
+        },
+        messages:{
+            methodName:{
+                required: "MethodName can not be empty",
+                minlength: "The length of the methodname cannot be less than 2 ",
+                maxlength: "The length of the methodname cannot be more than 10"
+            }
+
+
+        },
+        submitHandler:function(form){
+            /*var JSONobj = $("#methodForm").serializeJSON();
+            var JSONstr = JSON.stringify(JSONobj);//将JSON对象格式化成字符串*/
+            var formData = new FormData($("#methodForm")[0]);
+            $.ajax({
+                type:"post",
+                url:"/method/update",
+                cache: false,
+                contentType: false,
+                processData: false,
+                data:formData,
+                dataType : 'json',
+                success:function (res) {
+
+                    if (res.status == 0) {
+                        //弹出一个提示消息
+
+                        layer.msg(res.msg, {time: 1000, icon:6},function () {
+                            parent.refreshTable()
+                            let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                            parent.layer.close(index); //再执行关闭
+                        });
+                    } else {
+                        //弹出一个提示消息
+
+                        layer.msg(res.msg, {time: 1000, icon:5},function () {
+
+                            let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                            parent.layer.close(index); //再执行关闭
+                        });
+                    }
+                },
+                error:function (res) {
+
+                    layer.msg(res.msg,{time: 1000, icon:5})
+                }
+            })
+
+
+        }
+
+    });
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,545 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="Bookmark" href="/favicon.ico" >
+    <link rel="Shortcut Icon" href="/favicon.ico" />
+    <!--[if lt IE 9]>
+
+    <script type="text/javascript" th:src="@{/webapp/static/lib}"  ></script>
+    <script type="text/javascript" th:src="@{/webapp/static/lib/respond.min.js}" ></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui/css/H-ui.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui.admin/css/H-ui.admin.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/lib/Hui-iconfont/1.0.8/iconfont.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui.admin/skin/red/skin.css}" id="skin" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui.admin/css/style.css}" />
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/lib/bootstrap-3.3.7/css/bootstrap.css}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/lib/bootstrap-select/css/bootstrap-select.min.css}" />
+
+    <!--
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    -->
+
+    <!--[if IE 6]>
+    <script type="text/javascript" th:src="@{/webapp/static/lib/DD_belatedPNG_0.0.8a-min.js}"></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>mirtoolsgallery</title>
+    <meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+    <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+    <script th:src="@{/webapp/lib/html5shiv.js}"></script>
+
+
+</head>
+<body>
+<header class="navbar-wrapper">
+    <div class="navbar">
+        <div class="container-fluid cl">
+
+            <a class=" navbar-logo f-l mr-10 hidden-xs" th:href="@{index}">
+                <img th:src="@{/images/logo-miRToolsGallery-150.png}" height="150" width="273"/>
+            </a>
+
+
+            <a class="logo navbar-logo-m f-l mr-10 visible-xs" th:href="@{index}">miRToolsGallery</a>
+
+            <span class="logo navbar-slogan f-l mr-10 hidden-xs">A Small Non-coding RNA bioinformatics resources database portal</span>
+            <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
+
+
+
+
+            <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
+                <ul class="cl">
+                    <li id="Hui-backstage-management"> <a th:href="@{/manage/index}" ><i class="Hui-iconfont" style="font-size:18px">backstage management</i></a> </li>
+                    <li id="Hui-sign-in"> <a th:href="@{/login}" ><i class="Hui-iconfont" style="font-size:18px">sign in</i></a> </li>
+                    <li id="Hui-sign-up"> <a th:href="@{/signup}"><i class="Hui-iconfont" style="font-size:18px">sign up</i></a> </li>
+
+                </ul>
+            </nav>
+        </div>
+        <div class="container-fluid cl">
+            <nav id="Hui-nav" class="nav navbar-nav nav-collapse" role="navigation" style="user-select: auto;">
+                <ul id="min_title_list" >
+                    <li calss="current" id="Huinav_1" style="user-select: auto;"> <a th:href="@{/index}">Home</a> </li>
+                    <li id="Huinav_2" style="user-select: auto;"> <a th:href="@{/filer}" style="user-select: auto;">Filter and Rank</a> </li>
+                    <li id="Huinav_3" style="user-select: auto;"> <a th:href="@{/tutorials}" style="user-select: auto;">Tutorials</a> </li>
+                    <li id="Huinav_4" style="user-select: auto;"> <a th:href="@{/tag/list}" style="user-select: auto;">Tags Gallery</a> </li>
+                    <li id="Huinav_5" style="user-select: auto;"> <a th:href="@{/logo/list}" style="user-select: auto;">Logo Gallery</a> </li>
+                    <li id="Huinav_6" style="user-select: auto;"> <a th:href="@{/paper/list}" style="user-select: auto;">Review Paper Gallery</a> </li>
+                    <li id="Huinav_7" style="user-select: auto;"> <a th:href="@{/mirtool/add}" style="user-select: auto;">Submit Tools</a> </li>
+                    <li id="Huinav_8" style="user-select: auto;"> <a th:href="@{/mirtool/manage}" style="user-select: auto;">Manage Tools</a> </li>
+                    <li id="Huinav_9" style="user-select: auto;"> <a th:href="@{/contact}" style="user-select: auto;">Contact Us</a> </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-md-16">
+            <h2 class="title" id="page-title" style="user-select: auto;">
+
+                Filter and Rank       </h2>
+             <div class="section about" id="about-section" style="user-select: auto;">
+            <form class="form"  id="toolForm" >
+                    <div class="content-box" style="user-select: auto;">
+                        <div  class="col-md-5 ">
+                                        <label class="control-label fw-normal fs-4" for="year" style="user-select: auto;">Set latest Publication year between</label>
+                                        <input  type="number" class="form-control  "  id="year" name="year" size="60" th:value="2003">
+                                        <label class="control-label fw-normal fs-4" for="andYear" style="user-select: auto;">And</label>
+                                        <input  type="number" class="form-control  "  id="andYear" name="andYear" size="60"  th:value="2021">
+                                        <div class="fw-light fs-6" style="user-select: auto;">Please set year range for filtering.</div>
+                        </div>
+                        <div  class="col-md-3 col-md-offset-1">
+                            <label class="control-label fw-normal fs-4" for="citation" style="user-select: auto;">Status</label>
+                            <select id='custom-headers' class="selectpicker" name="satus" >
+                                <option th:value="-1"  >- Any -</option>
+                                <option th:value="4"> active</option>
+                                <option th:value="5"> dead</option>
+                            </select>
+                        </div>
+                        <div  class="col-md-3 ">
+                            <label class="control-label fw-normal fs-4" for="citation" style="user-select: auto;">Platforms</label>
+                            <select id='custom-platform' class="selectpicker"  name="platforms" >
+                                <option th:value="-1"  >- Any -</option>
+                                <option th:each="platform:${platforms}" th:value="${platform.platformId}" th:text="${platform.platformName}"> </option>
+                            </select>
+                        </div>
+                        <div  class="col-md-3 col-md-offset-1">
+                            <label class="control-label fw-normal fs-4" for="citation" style="user-select: auto;">Species</label>
+                            <select id='custom-species' class="selectpicker" name="species" >
+                                <option th:value="-1"  >- Any -</option>
+                                <option th:each="specie:${species}" th:value="${specie.speciesId}" th:text="${specie.speciesName}"> </option>
+
+                            </select>
+                        </div>
+                        <div  class="col-md-3 col-md-offset-1">
+                            <label class="control-label fw-normal fs-4" for="citation" style="user-select: auto;">Tags</label><br>
+                            <select id='custom-tags' class="selectpicker" data-live-search="true" name="tags" >
+                                <option th:value="-1"  >- Any -</option>
+                                <option th:each="tag:${tags}" th:value="${tag.tagId}" th:text="${tag.tagName}"> </option>
+                            </select>
+                        </div>
+                        <div  class="col-md-5 ">
+                                        <label class="control-label fw-normal fs-4" for="citation" style="user-select: auto;">Set latest Publication year between</label>
+                                        <input  type="number" class="form-control "  id="citation" name="citation" size="60" th:value="0">
+                                        <label class="control-label fw-normal fs-4" for="andCitation" style="user-select: auto;">And</label>
+                                        <input  type="number" class="form-control "  id="andCitation" name="andCitation" size="60" th:value="10000">
+                                        <div class="fw-light fs-6" style="user-select: auto;">Please set citation number limitation for filtering.</div>
+                        </div>
+
+                        </div>
+
+
+                                <div  class="col-md-3 col-md-offset-1">
+                                    <label class="control-label fw-normal fs-4" for="citation" style="user-select: auto;">Implementation technology</label>
+                                    <select id='custom-technology' class="selectpicker" data-live-search="true" name="techniques" >
+                                        <option th:value="-1"  >- Any -</option>
+                                        <option th:each="technique:${techniques}" th:value="${technique.techniqueId}" th:text="${technique.techniqueName}"> </option>
+                                    </select>
+                                </div>
+                                <div  class="col-md-3 ">
+                                    <label class="control-label fw-normal fs-4" for="citation" style="user-select: auto;">Methods</label>
+                                    <select id='custom-methods' class="selectpicker" data-live-search="true" name="methods" >
+                                        <option th:value="-1"  >- Any -</option>
+                                        <option th:each="method:${methods}" th:value="${method.methodId}" th:text="${method.methodName}"> </option>
+
+                                    </select>
+                                </div>
+                                <div  class="col-md-3 col-md-offset-1">
+                                    <label class="control-label fw-normal fs-4" for="citation" style="user-select: auto;">Sort by</label>
+                                    <select id='custom-sort' class="selectpicker" name="sort" >
+                                        <option th:value="1"> Latest Publication Year</option>
+                                        <option th:value="2"> PageRank Score</option>
+                                        <option th:value="3"> PubMed Citation Count</option>
+                                        <option th:value="4"> Publication Count</option>
+
+                                    </select>
+                                </div>
+                                <div  class="col-md-3">
+                                    <label class="control-label fw-normal fs-4" for="citation" style="user-select: auto;">Order</label>
+                                    <select id='custom-order' class="selectpicker" name="order" >
+                                        <option th:value="false">DESC</option>
+                                        <option th:value="true">ASC</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <button id="submitFilter"  class="btn btn-primary" type="button" >Submit</button>
+                                </div>
+
+            </form>
+             </div>
+            <div class="section skills" id="skills-section" style="user-select: auto;">
+                <table id="mirtoolTable"></table>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!--<script type="text/javascript" th:src="@{/webapp/lib/jquery/1.9.1/jquery.min.js}"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/layer/2.4/layer.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/static/h-ui/js/H-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/static/h-ui.admin/js/H-ui.admin.js}"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">--></script>
+<!--<script type="text/javascript" th:src="@{/webapp/lib/bootstrap-3.3.7/js/bootstrap.js}"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript"  th:src="@{/webapp/lib/My97DatePicker/4.8/WdatePicker.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/datatables/1.10.0/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/laypage/1.2/laypage.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/bootstrap-table/bootstrap-table.min.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/bootstrap-table/locale/bootstrap-table-en-US.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/bootstrap-select/js/bootstrap-select.min.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/jquery.validation/1.14.0/jquery.validate.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/jquery.validation/1.14.0/validate-methods.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/jquery.serializeJSON/jquery.serializejson.min.js}"></script>
+
+<!--
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+-->
+<script type="text/javascript">
+    $('#mirtoolTable').bootstrapTable({
+        pagination: true,
+        sidePagination: "server",//是否是服务器分页，每次请求都是对应的10条数据，下一页发送ajax请求
+        search: true,
+        toolbar: "#toolbar",//顶部显示的工具条（添加和批量删除的）
+        pageSize: 10,//默认的每页条数
+        contentType: 'application/x-www-form-urlencoded',//条件搜索的时候ajax请求给后台数据的数据类型（条件搜索post提交必须设置）
+        pageNumber: 1,//默认的页面 第一页
+        pageList:[10,25,50,100],//每页能显示的条数
+        paginationHAlign: 'right', //底部分页条
+        showToggle: true, //是否显示详细视图和列表视图的切换按钮
+        cardView: false, //是否显示详细视图
+        showRefresh: true, //是否显示刷新按钮
+        smartDisplay:false,
+        showColumns:true,
+        detailView: true,
+        url:"/mirtool/getMirtools", //从 url 获取 json 数据
+        /*
+			ajax请求以后回调函数的处理
+			后台使用返回的PageInfo对象中的 结果 级的key是list，总条数是total
+			而前台bootstrapTable插件需要的数据的key叫做rows ，总条数也是叫做total
+			那么出现一个问题 : 总条数的key能对上，结果集对不上，就需要在ajax请求完成回调
+			responseHandler 这个函数方法处理一下
+			并且在自定义一个 json,rows做为key，返回json的 list作为值
+				total：还是total
+			这样才能满足 bootstrapTable插件数据的需要
+		*/
+        responseHandler: function(res) {
+            /*
+                rows: 对应的是表的结果集
+                total: 是 pagination 分页信息显示所需要的总记录数，
+                       设置 sidePagination: "server" 这个属性后才需要，
+                       不设置个属性的话，总记录数就是当前页面的记录数
+             */
+            var data = {
+                rows : res.list,
+                total: res.totalCount,
+            }
+            return data
+        },
+        /* onSort: function (name, order){
+
+         },*/
+        onExpandRow: function(index,row,$detail){
+            var html = []
+            var mirtoolId = row.mirtoolId
+            $.each(row, function (key, value) {
+                if(undefined!=value){
+                    if(key=='satus'){
+                        if(value==0){
+                            value= 'Audit not passed'
+                        }
+                        else if (value == 1) {
+                            value= 'Pending review'
+                        } else if (value == 2) {
+                            value= 'To submit'
+                        } else if (value == 3){
+                            value=  'finished'
+                        } else if (value == 4){
+                            value= 'active'
+                        } else if (value == 5){
+                            value= 'dead'
+                        }
+
+                    }
+                    if(key=='mail'){
+                        return true;
+                    }
+                    if(key=='mirtoolId'){
+                        return true;
+                    }
+                    html.push('<p><b>' + key + ':</b> ' + value + '</p>')
+                }
+
+            })
+            $.ajax({
+                type: "get",
+                url: "/mirtool/getTags",
+                data:{
+                    mirtoolId:mirtoolId
+                },
+                async:false,
+                dataType: "json",
+                success: function (res) {
+                    if(res.status == 0){
+                        html.push('<b>tags:</b> ');
+                        for(var i=0;i<res.data.length;i++){
+                            html.push(res.data[i].tagName + ';&nbsp;&nbsp');
+
+                        }
+                        html.push('</p>');
+                    }
+                }
+
+            })
+            $.ajax({
+                type: "get",
+                url: "/mirtool/getSpecies",
+                data:{
+                    mirtoolId:mirtoolId
+                },
+                async:false,
+                dataType: "json",
+                success: function (res) {
+                    if(res.status == 0){
+                        html.push('<b>species:</b> ');
+                        for(var i=0;i<res.data.length;i++){
+                            html.push(res.data[i].speciesName + ';&nbsp;&nbsp');
+
+                        }
+                        html.push('</p>');
+                    }
+                }
+
+            })
+
+            $.ajax({
+                type: "get",
+                url: "/link/getSelected",
+                data:{
+                    mirtoolId:mirtoolId
+                },
+                async:false,
+                dataType: "json",
+                success: function (res) {
+                    if(res.status == 0){
+                        html.push('<b>links:</b> ');
+                        for(var i=0;i<res.data.length;i++){
+                            html.push(res.data[i].url + ';&nbsp;&nbsp');
+
+                        }
+                        html.push('</p>');
+                    }
+                }
+
+            })
+            $.ajax({
+                type: "get",
+                url: "/mirtool/getMethods",
+                data:{
+                    mirtoolId:mirtoolId
+                },
+                async:false,
+                dataType: "json",
+                success: function (res) {
+                    if(res.status == 0){
+                        html.push('<b>methods:</b> ');
+                        for(var i=0;i<res.data.length;i++){
+                            html.push(res.data[i].methodName + ';&nbsp;&nbsp');
+
+                        }
+                        html.push('</p>');
+                    }
+                }
+
+            })
+            $.ajax({
+                type: "get",
+                url: "/mirtool/getPlatforms",
+                data:{
+                    mirtoolId:mirtoolId
+                },
+                async:false,
+                dataType: "json",
+                success: function (res) {
+                    if(res.status == 0){
+                        html.push('<b>platforms:</b> ');
+                        for(var i=0;i<res.data.length;i++){
+                            html.push(res.data[i].platformName + ';&nbsp;&nbsp');
+
+                        }
+                        html.push('</p>');
+                    }
+                }
+
+            })
+            $.ajax({
+                type: "get",
+                url: "/mirtool/getTechniques",
+                data:{
+                    mirtoolId:mirtoolId
+                },
+                async:false,
+                dataType: "json",
+                success: function (res) {
+                    if(res.status == 0){
+                        html.push('<b>techniques:</b> ');
+                        for(var i=0;i<res.data.length;i++){
+                            html.push(res.data[i].techniqueName + ';&nbsp;&nbsp');
+
+                        }
+                        html.push('</p>');
+                    }
+                }
+
+            })
+
+         /*   html.push('<span onclick="mirtool_pass('+mirtoolId+')" style="cursor: pointer;  color:green" class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp')
+            html.push('<span onclick="mirtool_failed('+mirtoolId+')" style="cursor: pointer; color:red" class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp')
+*/
+            $detail.html(html)
+        },
+
+        columns: [ //表格显示数据对应的表头设置，
+            { checkbox: true},//是否显示前台的复选框（多选）
+            /*
+                每列数据的表头的设置
+                filed:返回json数据对应数据的key
+                title:表头要显示的名
+            */
+            {field: 'mirtoolId',title: 'mirtoolId'},
+            {field: 'mirtoolName',title: 'mirtoolName'},
+            {field: 'satus',title: 'status',formatter:statusFormatter},
+            {field: 'pubmedIds',title: 'pubmedIds'},
+            {field: 'creatTime',title: 'creatTime'},
+            {field: 'logId',title: 'logo',formatter:logoFormatter}
+            /*
+                操作列的设置（删除，修改）
+                formatter: 格式化这一行，回调一个函数
+            */
+
+        ],
+        /*发送请求的参数，
+			params: bootstrapTable的插件内部参数对象包含如下参数
+			limit, offset, search, sort
+			limit：每页条数
+			offset：每页的结束位置
+			search:搜索框对应的值
+			sort：排序
+		*/
+        queryParams: function(params) {
+            //此方法在用户分页或者搜索的时候回自动发送ajax请求调用，并把对应的参数传递给后台
+            return{
+                pageSize: params.limit,
+                keyWord: params.search,
+                pageNum: params.offset / params.limit + 1,
+            }
+        },
+
+    })
+
+    /*
+        操作行格式化对应的函数
+        value: 当前列的值
+        row：当前行的值(json对应的具体某一行)
+        index：索引位置
+    */
+
+
+    function logoFormatter(logId) {
+        var html="";
+        $.ajax({
+            type:"get",
+            url: "/logo/getAddress",
+            data:{
+                logId: logId
+            },
+            dataType: "json",
+            async : false,
+            success:function (res) {
+                if(res.status == 0){
+
+                    html+="<img src='"+res.data.address+"' height='50' width='50'>"
+                }
+
+            }
+        })
+
+        return html;
+    }
+    function statusFormatter(value) {
+        if(value==0){
+            return 'Audit not passed'
+        }
+        else if (value == 1) {
+            return 'Pending review'
+        } else if (value == 2) {
+            return 'To submit'
+        } else  if (value == 3){
+            return  'finished'
+        } else if (value == 4){
+            return 'active'
+        } else if (value == 5){
+            return 'dead'
+        }
+    }
+
+    //刷新表格
+    function refreshTable() {
+        $('#mirtoolTable').bootstrapTable('refresh');
+    }
+
+   /* $("#toolForm").validate({
+
+        submitHandler: function (form) {*/
+            /*
+                        var JSONobj = $("#toolForm").serializeJSON();
+                        var JSONstr = JSON.stringify(JSONobj);//将JSON对象格式化成字符串*/
+    $("#submitFilter").click(function (){
+        var formData = new FormData($("#toolForm")[0]);
+
+        $.ajax({
+            type: "post",
+            url: "/mirtool/qurray",
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: formData,
+            dataType: 'json',
+            success: function(res){
+                var data = {
+                    rows : res.list,
+                    total: res.totalCount,
+                }
+                $('#mirtoolTable').bootstrapTable('load', data);
+
+            }
+        })
+
+    })
+
+ /*    $('.selectpicker').selectpicker('refresh');
+      $('.selectpicker').selectpicker('render');*/
+</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reset Password</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+
+    <link rel="stylesheet" th:href="@{css/style.css}">
+
+</head>
+<body>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h1 class="heading-section">Reset your password</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-5">
+                <div class="wrap">
+                    <div class="login-wrap p-4 p-md-5">
+
+                        <form method="post"  class="signin-form" th:action="@{/admin/register}" id="registerForm">
+
+                                <div class="form-group mt-3">
+                                    <input name="mail" id="mail" type="text" class="form-control" required oninvalid="this.setCustomValidity('Please Enter email address')">
+                                    <label  class="form-control-placeholder" for="mail">Email address </label>
+                                </div>
+                                <div class="form-group">
+                                    <input name="password" id="password" type="password" class="form-control" required  oninvalid="this.setCustomValidity('Please Enter password')"
+                                           oninput="setCustomValidity('')">
+                                    <label class="form-control-placeholder" for="password">Password</label>
+                                    <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                </div>
+
+
+                                <p>
+                                <div class="d-flex flex-column flex-md-row flex-md-justify-center">
+
+                                    <div class="form-group mt-3">
+                                        <input name="resetCode" id="resetCode" type="text" class="form-control" required oninvalid="this.setCustomValidity('Please Enter verification code')">
+
+                                        <label  class="form-control-placeholder" for="resetCode">verification code</label>
+
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <button id="sendCode" type="button"  class="form-control btn btn-outline flex-auto " th:href="@{/admin/sendResetCode}">sendCode</button>
+                                    </div>
+
+                                </div>
+                                </p>
+                                <div class="form-group">
+                                    <a th:href="@{/admin/resetPsw}"></a>
+                                    <button id="resetPsw" type="submit" th:href="@{/admin/resetPsw}" class="form-control btn btn-primary rounded submit px-3">change password</button>
+                                </div>
+
+                        </form>
+                        <p class="text-center">Already registered. <a  th:href="@{/login}">To log in</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:src="@{js/jquery.min.js}"></script>
+<script th:src="@{js/popper.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+<script th:src="@{js/main.js}"></script>
+
+
+<script type="text/javascript" th:src="@{/webapp/lib/layer/2.4/layer.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/static/h-ui/js/H-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/static/h-ui.admin/js/H-ui.admin.js}"></script>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" th:src="@{/webapp/lib/jquery.validation/1.14.0/jquery.validate.js}"></script>
+<script type="text/javascript" th:src="@{/webapp/lib/jquery.validation/1.14.0/validate-methods.js}"></script>
+<!--<script type="text/javascript" th:src="@{/webapp/lib/jquery.validation/1.14.0/messages_zh.js}"></script>-->
+
+<script>
+    $("#registerForm").validate({
+        rules:{
+            mail: {
+                required: true,
+                email:true,
+
+                remote:{
+                    url:"admin/queryMail",
+                    type: "post",
+                    dataType: "json",
+                    data:{
+                        mail : function (){
+                            return $('#mail').val()
+                        }
+                    }
+                }
+            },
+            password: {
+                required:true,
+                minlength: 6,
+                maxlength:16
+            },
+            resetCode:{
+                required:true
+            }
+        },
+        messages:{
+
+            mail:{
+                required: "Email address can not be empty",
+                email: "Email address is not correct",
+                remote:"Email address  is not a verified primary email "
+            },
+            password: {
+                minlength:"The length of the password cannot be less than 6",
+                maxlength:"The length of the password cannot be more than 16"
+            },
+            resetCode:{
+                required: "registerCode can not be empty",
+            }
+        },
+        submitHandler:function(form){
+
+            /*$(signin-form).ajaxSubmit(function (res){
+                if (res.status == 1) {
+                    //弹出一个提示消息
+                    layer.msg("success！", {time: 1000, icon:6},function () {
+                        parent.refreshTable();
+                    });
+                } else {
+                    //弹出一个提示消息
+                    layer.msg("failed！", {time: 1000, icon:5},function () {
+                        parent.refreshTable();
+                    });
+                }
+            })*/
+        }
+
+    });
+
+    $("#resetPsw").click(function(){
+        $.ajax({
+            type:"post",
+            url:"/admin/resetPsw",
+            data:{
+
+                password:$("#password").val(),
+                mail:$("#mail").val(),
+                resetCode:$("#resetCode").val()
+            },
+            dataType:"json",
+            success:function (response){
+                if(response.status == 0){
+                    layer.msg("success！", {time: 1000, icon:6},function () {
+                        location.href="/login"
+
+                    });
+
+
+                }else if(response.status == 1){
+                    layer.msg("failed！", {time: 1000, icon:5},function () {
+                        location.reload();
+                    });
+
+                }
+            }
+        })
+    })
+
+    $("#sendCode").validate({
+        rules:{
+            mail: {
+                required: true,
+                email:true,
+                remote:{
+                    url:"admin/queryMail",
+                    type: "post",
+                    dataType: "json",
+                    data:{
+                        mail : function (){
+                            return $('#mail').val()
+                        }
+                    }
+                }
+            }
+        },
+        messages: {
+            mail:{
+                required: "Email address can not be empty",
+                email: "Email address is not correct",
+                remote:"Email address  is not a verified primary email . "
+            }
+        }
+    })
+    $("#sendCode").click(function(){
+        $.ajax({
+            type:"post",
+            url:"/admin/sendResetCode",
+            data:{
+
+                mail:$("#mail").val()
+            },
+            dataType:"json",
+            success:function (response){
+                if(response.status==0)
+                    alert("success !")
+                else if(response.status == 1){
+                    alert("Failed!")
+                }
+
+            }
+        })
+    })
+</script>
+</body>
+</html>
+

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="Bookmark" href="/favicon.ico" >
+    <link rel="Shortcut Icon" href="/favicon.ico" />
+    <!--[if lt IE 9]>
+
+    <script type="text/javascript" th:src="@{/webapp/static/lib}"  ></script>
+    <script type="text/javascript" th:src="@{/webapp/static/lib/respond.min.js}" ></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/detail/basic.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/detail/layout.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui/css/H-ui.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui.admin/css/H-ui.admin.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/lib/Hui-iconfont/1.0.8/iconfont.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui.admin/skin/red/skin.css}" id="skin" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/static/h-ui.admin/css/style.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webapp/lib/bootstrap-3.3.7/css/bootstrap.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <!--[if IE 6]>
+    <script type="text/javascript" th:src="@{/webapp/static/lib/DD_belatedPNG_0.0.8a-min.js}"></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>mirtoolsgallery</title>
+    <script th:src="@{/webapp/lib/html5shiv.js}"></script>
+</head>
+<body>
+<header class="navbar-wrapper">
+    <div class="navbar">
+        <div class="container-fluid cl">
+
+            <a class=" navbar-logo f-l mr-10 hidden-xs" th:href="@{index}">
+                <img th:src="@{/images/logo-miRToolsGallery-150.png}" height="150" width="273"/>
+            </a>
+
+
+            <a class="logo navbar-logo-m f-l mr-10 visible-xs" th:href="@{index}">miRToolsGallery</a>
+
+            <span class="logo navbar-slogan f-l mr-10 hidden-xs">A Small Non-coding RNA bioinformatics resources database portal</span>
+            <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
+
+
+
+
+            <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
+                <ul class="cl">
+                    <li id="Hui-backstage-management"> <a th:href="@{/manage/index}" ><i class="Hui-iconfont" style="font-size:18px">backstage management</i></a> </li>
+                    <li id="Hui-sign-in"> <a th:href="@{/login}" ><i class="Hui-iconfont" style="font-size:18px">sign in</i></a> </li>
+                    <li id="Hui-sign-up"> <a th:href="@{/signup}"><i class="Hui-iconfont" style="font-size:18px">sign up</i></a> </li>
+
+                </ul>
+            </nav>
+        </div>
+        <div class="container-fluid cl">
+            <nav id="Hui-nav" class="nav navbar-nav nav-collapse" role="navigation" style="user-select: auto;">
+                <ul id="min_title_list" >
+                    <li calss="current" id="Huinav_1" style="user-select: auto;"> <a th:href="@{/index}">Home</a> </li>
+                    <li id="Huinav_2" style="user-select: auto;"> <a th:href="@{/mirtool/filter}" style="user-select: auto;">Filter and Rank</a> </li>
+                    <li id="Huinav_3" style="user-select: auto;"> <a th:href="@{/tutorials}" style="user-select: auto;">Tutorials</a> </li>
+                    <li id="Huinav_4" style="user-select: auto;"> <a th:href="@{/tags/list}" style="user-select: auto;">Tags Gallery</a> </li>
+                    <li id="Huinav_5" style="user-select: auto;"> <a th:href="@{/logo/list}" style="user-select: auto;">Logo Gallery</a> </li>
+                    <li id="Huinav_6" style="user-select: auto;"> <a th:href="@{/paper/list}" style="user-select: auto;">Review Paper Gallery</a> </li>
+                    <li id="Huinav_7" style="user-select: auto;"> <a th:href="@{/mirtool/add}" style="user-select: auto;">Submit Tools</a> </li>
+                    <li id="Huinav_8" style="user-select: auto;"> <a th:href="@{/mirtool/manage}" style="user-select: auto;">Manage Tools</a> </li>
+                    <li id="Huinav_9" style="user-select: auto;"> <a th:href="@{/contact}" style="user-select: auto;">Contact Us</a> </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="section about" id="about-section" style="user-select: auto;">
+                <div class="content-box" style="user-select: auto;">
+                    <div class="row" style="user-select: auto;">
+
+                        <div class="col col-m-12 col-t-7 col-d-7" style="user-select: auto;">
+                            <div class="text-box" style="user-select: auto;">
+                                <div id="logoDiv" >
+                                    <img th:src="@{${address}}"  height="80" width="100"  class="img-rounded" >
+
+                                </div>
+                                <p  style="user-select: auto;">
+                                    <strong style="user-select: auto;" th:text="${selectedMirtool.mirtoolName}"></strong>
+                                </p>
+
+                                <div class="category" th:text="'Submitted on：'+${selectedMirtool.creatTime}"></div>
+                                <p style="user-select: auto;" th:text="${selectedMirtool.summary}"> </p>
+
+                            <div class="bts" style="user-select: auto;"><a href="#" class="btn btn_animated"
+                                                                           style="user-select: auto;"><span class="circle"
+                                                                                                            style="user-select: auto;">Download CV</span></a><a
+                                    href="#" class="btn extra contact-btn btn_animated" style="user-select: auto;"><span
+                                    class="circle" style="user-select: auto;">Contact Me</span></a></div>
+                        </div>
+                    </div>
+                        <div class="col col-m-12 col-t-5 col-d-5" style="user-select: auto;">
+                            <div class="info-list" style="user-select: auto;">
+
+                                <ul style="user-select: auto;">
+                                    <li style="user-select: auto;" >
+                                        <strong style="user-select: auto;">
+                                            <span  style="user-select: auto;">Status</span>
+                                        </strong>
+                                        <a  th:href="@{/mirtool/indexFilter(satus=${selectedMirtool.satus})}"> [[ ${selectedMirtool.satus==4?'active':'dead'}]]</a>
+
+                                    </li>
+                                    <li style="user-select: auto;" th:if="${not #lists.isEmpty(tags)}" ><strong style="user-select: auto;"><span
+                                            style="user-select: auto;">Tags:</span></strong>
+                                        <th:block th:each="tag : ${tags}" >
+                                            <a  th:href="@{/mirtool/indexFilter(tagId=${tag.tagId})}">  [[${tag.tagName}+';']]</a>
+                                        </th:block>
+                                    </li>
+                                    <li style="user-select: auto;" th:if="${not #lists.isEmpty(platforms)}"><strong style="user-select: auto;"><span
+                                            style="user-select: auto;">Platforms:</span></strong>
+                                        <th:block th:each="platform : ${platforms}" >
+                                            <a  th:href="@{/mirtool/indexFilter(platformId=${platform.platformId})}">  [[${platform.platformName}+';']]</a>
+                                        </th:block>
+                                    </li>
+                                    <li style="user-select: auto;" th:if="${not #lists.isEmpty(techniques)}"><strong style="user-select: auto;"><span
+                                            style="user-select: auto;">Technique:</span></strong>
+                                        <th:block th:each="technique : ${techniques}" >
+                                            <a  th:href="@{/mirtool/indexFilter(techniqueId=${technique.techniqueId})}">  [[${technique.techniqueName}+';']]</a>
+
+                                        </th:block>
+                                    </li>
+                                    <li style="user-select: auto;" th:if="${not #lists.isEmpty(methods)}"><strong style="user-select: auto;"><span
+                                            style="user-select: auto;">Methods:</span></strong>
+                                        <th:block th:each="method : ${methods}" >
+                                            <a  th:href="@{/mirtool/indexFilter(methodId=${method.methodId})}">  [[${method.methodName}+';']]</a>
+
+                                        </th:block>
+                                    </li>
+                                    <li style="user-select: auto;" th:if="${not #lists.isEmpty(species)}"><strong style="user-select: auto;"><span
+                                            style="user-select: auto;">Species:</span></strong>
+                                        <th:block th:each="species : ${species}" >
+                                            <a  th:href="@{/mirtool/indexFilter(speciesId=${species.speciesId})}">  [[${species.speciesName}+';']]</a>
+
+                                        </th:block>
+                                    </li>
+                                    <li style="user-select: auto;" ><strong style="user-select: auto;"><span
+                                            style="user-select: auto;">Pubmed IDs:</span></strong><a href="tel:12562548456"
+                                                                                                     style="user-select: auto;">+1 256
+                                        254 84 56</a></li>
+                                    <li style="user-select: auto;" th:if="${not #lists.isEmpty(links)}"><strong style="user-select: auto;"><span
+                                            style="user-select: auto;">Links:</span></strong>
+                                        <a th:each="link : ${links}" th:href="${link.url}" style="user-select: auto;" th:text="${link.url}"></a>;
+
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+        </div>
+            <div class="section skills" id="skills-section" style="user-select: auto;">
+                <div class="title" style="user-select: auto;">References</div>
+                <div class="row" style="user-select: auto;">
+                    <div class="col col-m-12 col-t-6 col-d-6" style="user-select: auto;">
+                        <div class="content-box animated" data-sr-id="1"
+                             style="visibility: visible; transform: translateY(0px) scale(1); opacity: 1; transition: transform 0.5s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.5s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; user-select: auto;">
+
+                            <div class="info-list" style="user-select: auto;">
+                                <ul style="user-select: auto;">
+                                    <li style="user-select: auto;" id="reference" th:each="doi:${dois}">
+                                        <strong style="user-select: auto;">
+
+                                        </strong>
+
+                                    </li>
+                                    <li style="user-select: auto;" >
+                                        <strong style="user-select: auto;">
+
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+
+        </div>
+    </div>
+
+
+
+</div>
+</div>
+<script type="text/javascript" th:src="@{/webapp/lib/jquery/1.9.1/jquery.min.js}"></script>
+<script>
+    $.ajax({
+        url:"https://citation.crosscite.org/format?doi=10.1016/j.cell.2004.12.035&style=apa",
+        contentType:"text/plain",
+        type:"get",
+        success: function(res) {
+
+                $('#reference').append(res);
+
+        }
+    });
+</script>
+</body>
+</html>
